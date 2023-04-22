@@ -3,10 +3,10 @@ CXX = g++
 CXXFLAGS = -Wall -Wextra -Wpedantic -std=c++17
 
 # Target executable
-TARGET = myprogram
+TARGET = player
 
 # Source files
-SRCS = main.cpp
+SRCS = player1.cpp
 
 # Object files
 OBJS = $(SRCS:.cpp=.o)
