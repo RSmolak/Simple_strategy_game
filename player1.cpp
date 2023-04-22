@@ -26,7 +26,7 @@ bool checkCommandLineArguments(const std::string& src_map, const std::string& sr
 bool readMap(const std::string& map_src, std::vector<std::vector<int>>& map){
     std::ifstream file(map_src);
     if (!file.is_open()) {
-        std::cerr << "Nie można otworzyć pliku " << map_src << '\n';
+        std::cerr << "Nie mozna otworzyc pliku " << map_src << '\n';
         return false;
     }
 
@@ -44,7 +44,7 @@ bool readMap(const std::string& map_src, std::vector<std::vector<int>>& map){
 bool readStatus(const std::string& src_status, std::vector<std::string>& status){
     std::ifstream file(src_status);
     if (!file.is_open()) {
-        std::cerr << "Nie można otworzyć pliku " << src_status << '\n';
+        std::cerr << "Nie mozna otworzyc pliku " << src_status << '\n';
         return false;
     }
 
@@ -79,12 +79,12 @@ int main(int argc, char* argv[]) {
     }
 
     if(!readMap(src_map, map)){
-        std::cerr << "Bład wczytywania mapy!\n";
+        std::cerr << "Blad wczytywania mapy!\n";
         return 1;
     }
 
     if(!readStatus(src_status, status)){
-        std::cerr << "Bład wczytywania statusu!\n";
+        std::cerr << "Blad wczytywania statusu!\n";
         return 1;
     }
 
