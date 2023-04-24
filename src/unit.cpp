@@ -1,4 +1,4 @@
-#include "Unit.hpp"
+#include "../include/unit.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -25,11 +25,11 @@ void Unit::setDurability(int durability) { this->durability = durability; }
 void Unit::setProducedUnit(UnitType producedUnit) { this->producedUnit = producedUnit; }
 
 bool readStatus(const std::string& filename, std::vector<Unit>& units, int& gold) {
-    std::ifstream file(filename);
+    std::ifstream file("data/" + filename);
     int linenumber = 1;
 
     if (!file.is_open()) {
-        std::cerr << "Nie można otworzyć pliku " << filename << '\n';
+        std::cerr << "Nie można otworzyć pliku " << "data/" << filename << '\n';
         return false;
     }
 

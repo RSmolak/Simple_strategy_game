@@ -2,11 +2,12 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include "Unit.hpp"
+#include "../include/unit.hpp"
+#include "../include/map.hpp"
 
 bool checkCommandLineArguments(const std::string& src_map, const std::string& src_status, const std::string& src_orders, const int& time_limit);
 
-bool readMap(const std::string& map_src, std::vector<std::vector<int>>& map);
+//bool readMap(const std::string& map_src, std::vector<std::vector<int>>& map);
 
 bool readStatus(const std::string& src_status, std::vector<Unit>& units, int& gold);
 
@@ -16,7 +17,7 @@ void displayUnitsAndGold(const std::vector<Unit>& units, int gold);
 int main(int argc, char* argv[]) {
     std::string src_map, src_status, src_orders;
     int time_limit;
-    std::vector<std::vector<int>> map;
+    Map map = Map();
     int gold;
     std::vector<Unit> units;
 
@@ -36,7 +37,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    if(!readMap(src_map, map)){
+    if(!map.read(src_map)){
         std::cerr << "Blad wczytywania mapy!\n";
         return 1;
     }
@@ -51,23 +52,23 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-bool readMap(const std::string& map_src, std::vector<std::vector<int>>& map){
-    std::ifstream file(map_src);
-    if (!file.is_open()) {
-        std::cerr << "Nie mozna otworzyc pliku " << map_src << '\n';
-        return false;
-    }
+// bool readMap(const std::string& map_src, std::vector<std::vector<int>>& map){
+//     std::ifstream file("data/" + map_src);
+//     if (!file.is_open()) {
+//         std::cerr << "Nie mozna otworzyc pliku " << "../data/" << map_src << '\n';
+//         return false;
+//     }
 
-    std::string line;
-    while (std::getline(file, line)) {
-        std::vector<int> row;
-        for (char c : line) {
-            row.push_back(c - '0');
-        }
-        map.push_back(row);
-    }
-    return true;
-}
+//     std::string line;
+//     while (std::getline(file, line)) {
+//         std::vector<int> row;
+//         for (char c : line) {
+//             row.push_back(c - '0');
+//         }
+//         map.push_back(row);
+//     }
+//     return true;
+// }
 
 bool checkCommandLineArguments(const std::string& src_map, const std::string& src_status, const std::string& src_orders, const int& time_limit){
     if(src_map!="mapa.txt"){

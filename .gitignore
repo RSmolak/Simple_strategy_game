@@ -3,3 +3,6 @@ main.o
 myprogram.exe
 player1.exe
 player1.o
+map.o
+tile.o
+unit.o
