@@ -37,7 +37,18 @@ private:
     std::vector<std::vector<Tile>> tiles;
 
 public:
+    /**
+     * @brief Kontruktor obiektu mapy.
+     * 
+     */
     Map();
+    /**
+     * @brief Funkcja zapisująca mapę z pliku do obiektu
+     * 
+     * @param src_file plik txt z mapa
+     * @return true przepisywanie pomyslne
+     * @return false przepisywanie niepomyslne
+     */
     bool read(const std::string& src_file);
     /**
      * @brief Zwraca obiekt tile
@@ -48,5 +59,9 @@ public:
      */
     Tile getTile(int x, int y) const {return tiles[y][x];};
 
+    /**
+     * @brief Funkcja testowa wypisująca mapę w konsoli.
+     * 
+     */
     void display() const;
 };

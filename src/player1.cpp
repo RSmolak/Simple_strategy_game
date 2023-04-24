@@ -76,12 +76,6 @@ void displayUnitsAndGold(const std::vector<Unit>& units, int gold) {
     std::cout << "Jednostki:" << '\n';
 
     for (const Unit& unit : units) {
-        std::string teamName = (unit.getTeam() == Team::PLAYER) ? "PLAYER" : "ENEMY";
-        char typeChar = 'A' + static_cast<char>(unit.getType());
-        char producedUnitChar = (unit.getProducedUnit() == UnitType::NONE) ? '0' : 'A' + static_cast<char>(unit.getProducedUnit());
-
-        std::cout << "Team: " << teamName << ", Type: " << typeChar << ", ID: " << unit.getId()
-                  << ", X: " << unit.getX() << ", Y: " << unit.getY() << ", Durability: " << unit.getDurability()
-                  << ", Produced Unit: " << producedUnitChar << '\n';
+        unit.display();
     }
 }

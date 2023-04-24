@@ -3,8 +3,67 @@
 #include <fstream>
 #include <sstream>
 
+
+const std::map<UnitType, UnitProperties> UnitTypeData::data = {
+    { UnitType::K, { 5, 400, 1, 5 } },
+    { UnitType::S, { 2, 250, 1, 3 } },
+    { UnitType::A, { 2, 250, 5, 3 } },
+    { UnitType::P, { 2, 200, 2, 3 } },
+    { UnitType::R, { 2, 500, 1, 4 } },
+    { UnitType::C, { 2, 800, 7, 6 } },
+    { UnitType::W, { 2, 100, 1, 2 } },
+    { UnitType::B, { 0, 0, 0, 0 } },
+    { UnitType::NONE, { 0, 0, 0, 0 } }
+};
+
+const std::map<char, UnitType> CHAR_TO_UNIT_TYPE = {
+    {'K', UnitType::K},
+    {'S', UnitType::S},
+    {'A', UnitType::A},
+    {'P', UnitType::P},
+    {'C', UnitType::C},
+    {'R', UnitType::R},
+    {'W', UnitType::W},
+    {'B', UnitType::B},
+};
+
+const std::map<char, Team> CHAR_TO_TEAM = {
+    {'P', Team::PLAYER},
+    {'E', Team::ENEMY},
+};
+
+const std::map<UnitType, char> UNIT_TYPE_TO_CHAR = {
+    {UnitType::K, 'K'},
+    {UnitType::S, 'S'},
+    {UnitType::A, 'A'},
+    {UnitType::P, 'P'},
+    {UnitType::C, 'C'},
+    {UnitType::R, 'R'},
+    {UnitType::W, 'W'},
+    {UnitType::B, 'B'},
+    {UnitType::NONE, '0'},
+};
+
+
 Unit::Unit(Team team, UnitType type, int id, int x, int y, int durability, UnitType producedUnit)
-    : team(team), type(type), id(id), x(x), y(y), durability(durability), producedUnit(producedUnit) {}
+    : team(team), type(type), id(id), x(x), y(y), durability(durability), producedUnit(producedUnit) {
+    try {
+        const UnitProperties& props = UnitTypeData::data.at(type);
+        speed = props.speed;
+        cost = props.cost;
+        range = props.range;
+        productionTime = props.productionTime;
+    } catch (const std::out_of_range& e) {
+        std::cerr << "Blad: nie znaleziono wlasnosci dla jednostki " << static_cast<int>(type) << '\n';
+    }
+}
+
+void Unit::display() const {
+    std::string team = (getTeam() == Team::PLAYER) ? "PLAYER" : "ENEMY";
+    char producedUnitChar = (getProducedUnit() == UnitType::NONE) ? '0' : UNIT_TYPE_TO_CHAR.at(getProducedUnit());
+    std::cout << "Team: " << team << ", Type: " << UNIT_TYPE_TO_CHAR.at(getType()) << ", ID: " << getId() << ", X: " << getX() << ", Y: " << getY()
+              << ", Durability: " << getDurability() << ", Produced Unit: " << producedUnitChar << std::endl;
+}
 
 // Gettery
 Team Unit::getTeam() const { return team; }
@@ -58,9 +117,9 @@ bool readStatus(const std::string& filename, std::vector<Unit>& units, int& gold
             // Ostatni parametr jest dostępny
         }
 
-        Team team = (teamChar == 'P') ? Team::PLAYER : Team::ENEMY;
-        UnitType type = static_cast<UnitType>(typeChar - 'A');
-        UnitType producedUnit = (producedUnitChar == '0') ? UnitType::NONE : static_cast<UnitType>(producedUnitChar - 'A');
+        Team team = CHAR_TO_TEAM.at(teamChar);
+        UnitType type = CHAR_TO_UNIT_TYPE.at(typeChar);
+        UnitType producedUnit = (producedUnitChar == '0') ? UnitType::NONE : CHAR_TO_UNIT_TYPE.at(producedUnitChar);
 
         units.push_back(Unit(team, type, id, x, y, durability, producedUnit));
     }
