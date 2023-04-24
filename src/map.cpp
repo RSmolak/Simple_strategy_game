@@ -20,3 +20,13 @@ bool Map::read(const std::string &src_file)
     }
     return true;
 }
+
+void Map::display() const
+{
+    for (const auto &row : tiles) {
+        for (const auto &tile : row) {
+            std::cout << tile.get();
+        }
+        std::cout << '\n';
+    }
+}

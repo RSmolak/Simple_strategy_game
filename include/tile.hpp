@@ -23,9 +23,9 @@ public:
     /// @param x Wspolrzedna x wybranego pola
     /// @param y Wspolrzedna y wybranego pola
     /// @return zmienna typu char reprezentujaca pole 
-    char get(){return type;};
-    bool isObstacle() {return type=='9';};
-    bool isPlayer1Base() {return type=='1';};
-    bool isPlayer2Base() {return type=='2';};
-    bool isMine() {return type=='0';};
+    char get()const {return type;};
+    bool isObstacle()const {return type=='9';};
+    bool isPlayer1Base()const {return type=='1';};
+    bool isPlayer2Base()const {return type=='2';};
+    bool isMine()const {return type=='0';};
 };

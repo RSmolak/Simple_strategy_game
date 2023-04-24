@@ -46,5 +46,7 @@ public:
      * @param wspolrzedna y 
      * @return Tile 
      */
-    Tile getTile(int x, int y){return tiles[y][x];};
+    Tile getTile(int x, int y) const {return tiles[y][x];};
+
+    void display() const;
 };

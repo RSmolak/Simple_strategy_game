@@ -7,8 +7,6 @@
 
 bool checkCommandLineArguments(const std::string& src_map, const std::string& src_status, const std::string& src_orders, const int& time_limit);
 
-//bool readMap(const std::string& map_src, std::vector<std::vector<int>>& map);
-
 bool readStatus(const std::string& src_status, std::vector<Unit>& units, int& gold);
 
 void displayUnitsAndGold(const std::vector<Unit>& units, int gold);
@@ -48,27 +46,10 @@ int main(int argc, char* argv[]) {
     }
 
     displayUnitsAndGold(units, gold);
+    map.display();
 
     return 0;
 }
-
-// bool readMap(const std::string& map_src, std::vector<std::vector<int>>& map){
-//     std::ifstream file("data/" + map_src);
-//     if (!file.is_open()) {
-//         std::cerr << "Nie mozna otworzyc pliku " << "../data/" << map_src << '\n';
-//         return false;
-//     }
-
-//     std::string line;
-//     while (std::getline(file, line)) {
-//         std::vector<int> row;
-//         for (char c : line) {
-//             row.push_back(c - '0');
-//         }
-//         map.push_back(row);
-//     }
-//     return true;
-// }
 
 bool checkCommandLineArguments(const std::string& src_map, const std::string& src_status, const std::string& src_orders, const int& time_limit){
     if(src_map!="mapa.txt"){
